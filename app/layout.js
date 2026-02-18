@@ -22,6 +22,9 @@ const nunito = Nunito({
 export const metadata = {
   title: "ShortLink - Your trusted URL Shortener",
   description: "Shortlink is a URL shortener web application. It allows users to shorten long URLs and track the number of clicks on each shortened URL.",
+  icons: {
+    icon: "/shortLinkfavicon.png",
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -1,18 +1,34 @@
+import { ImageResponse } from 'next/og'
+
+export const runtime = 'edge'
+
+export const size = {
+  width: 32,
+  height: 32,
+}
+
+export const contentType = 'image/png'
+
 export default function Icon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <rect width="100" height="100" rx="20" fill="#9333ea"/>
-      <text
-        x="50"
-        y="70"
-        fontSize="60"
-        textAnchor="middle"
-        fill="white"
-        fontFamily="Arial, sans-serif"
-        fontWeight="bold"
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          fontSize: 24,
+          background: '#9333ea',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '20%',
+        }}
       >
         🔗
-      </text>
-    </svg>
+      </div>
+    ),
+    {
+      ...size,
+    }
   )
 }

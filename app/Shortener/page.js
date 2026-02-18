@@ -1,114 +1,128 @@
-"use client"
-import React, { useState } from 'react'
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import QRCode from "react-qr-code";
 
 const Shortener = () => {
-  const [url, setUrl] = useState('')
-  const [shortUrl, setShortUrl] = useState('')
-  const [generatedUrl, setGeneratedUrl] = useState('')
-  const [error, setError] = useState('')
-  const [copied, setCopied] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [url, setUrl] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+  const [generatedUrl, setGeneratedUrl] = useState("");
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleUrlChange = (e) => {
-    setUrl(e.target.value)
-    setError('')
-  }
+    setUrl(e.target.value);
+    setError("");
+  };
 
   const handleShortUrlChange = (e) => {
-    setShortUrl(e.target.value)
-    setError('')
-  }
+    setShortUrl(e.target.value);
+    setError("");
+  };
 
   const generateRandomString = () => {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    let result = ''
+    const chars =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
     for (let i = 0; i < 6; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length))
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    return result
-  }
+    return result;
+  };
 
   const isValidUrl = (urlString) => {
     try {
-      new URL(urlString)
-      return true
+      new URL(urlString);
+      return true;
     } catch (e) {
-      return false
+      return false;
     }
-  }
+  };
 
   const handleGenerate = async () => {
     // Validation
     if (!url.trim()) {
-      setError('Please enter a URL')
-      return
+      setError("Please enter a URL");
+      return;
     }
 
     if (!isValidUrl(url)) {
-      setError('Please enter a valid URL (include http:// or https://)')
-      return
+      setError("Please enter a valid URL (include http:// or https://)");
+      return;
     }
 
     // Generate short code if not provided
-    const shortPath = shortUrl.trim() || generateRandomString()
+    const shortPath = shortUrl.trim() || generateRandomString();
 
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError("");
 
     try {
       // Call the API to store the URL mapping
-      const response = await fetch('/api/shorten', {
-        method: 'POST',
+      const response = await fetch("/api/generate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           url: url,
-          shortCode: shortPath
-        })
-      })
+          shorturl: shortPath,
+        }),
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (data.success) {
-        setGeneratedUrl(data.shortUrl)
-        setCopied(false)
+        // Generate the full short URL
+        const fullShortUrl = `${window.location.origin}/${shortPath}`;
+        setGeneratedUrl(fullShortUrl);
+        setCopied(false);
+        setUrl(""); 
+        setShortUrl("");
+        // setGeneratedUrl(true);
+        console.log("Short URL generated:", fullShortUrl);
+        alert("Short URL generated successfully!");
       } else {
-        setError(data.error || 'Failed to create short URL')
+        setError(data.message || "Failed to create short URL");
       }
     } catch (err) {
-      console.error('Error creating short URL:', err)
-      setError('Failed to connect to server. Please try again.')
+      console.error("Error creating short URL:", err);
+      setError("Failed to connect to server. Please try again.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(generatedUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(generatedUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy:', err)
+      console.error("Failed to copy:", err);
     }
-  }
+  };
 
   return (
     <div className="min-h-[calc(100vh-72px)] bg-purple-100 flex items-center justify-center p-4">
       <div className="bg-purple-100 rounded-2xl shadow-2xl p-8 max-w-2xl w-full">
-        <h1 className="text-3xl font-bold text-center mb-2 text-purple-700">Generate Your Short URLs</h1>
-        <p className="text-center text-gray-600 mb-8">Transform long URLs into short, shareable links</p>
-        
+        <h1 className="text-3xl font-bold text-center mb-2 text-purple-700">
+          Generate Your Short URLs
+        </h1>
+        <p className="text-center text-gray-600 mb-8">
+          Transform long URLs into short, shareable links
+        </p>
+
         <div className="flex flex-col gap-4">
           {/* URL Input */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Enter Your URL <span className="text-red-500">*</span>
             </label>
-            <input 
+            <input
               type="text"
-              placeholder='https://example.com/very-long-url'
+              placeholder="https://example.com/very-long-url"
               value={url}
               onChange={handleUrlChange}
               className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
@@ -120,14 +134,16 @@ const Shortener = () => {
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Custom Short URL (Optional)
             </label>
-            <input 
-              type="text" 
-              placeholder='my-custom-link'
+            <input
+              type="text"
+              placeholder="my-custom-link"
               value={shortUrl}
               onChange={handleShortUrlChange}
               className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
             />
-            <p className="text-xs text-gray-500 mt-1">Leave empty to auto-generate a random short URL</p>
+            <p className="text-xs text-gray-500 mt-1">
+              Leave empty to auto-generate a random short URL
+            </p>
           </div>
 
           {/* Error Message */}
@@ -138,38 +154,62 @@ const Shortener = () => {
           )}
 
           {/* Generate Button */}
-          <button 
+          <button
             onClick={handleGenerate}
             disabled={loading}
             className={`text-white rounded-lg shadow-lg px-6 py-3 font-bold text-lg transition-all duration-300 ease-in-out ${
-              loading 
-                ? 'bg-purple-400 cursor-not-allowed' 
-                : 'bg-purple-500 hover:bg-purple-600 hover:shadow-2xl hover:scale-105 hover:-translate-y-1 active:scale-95'
+              loading
+                ? "bg-purple-400 cursor-not-allowed"
+                : "bg-purple-500 hover:bg-purple-600 hover:shadow-2xl hover:scale-105 hover:-translate-y-1 active:scale-95"
             }`}
           >
-            {loading ? 'Generating...' : 'Generate Short URL'}
+          {loading ? "Generating..." : "Generate Short URL"}
           </button>
+
+          {/* QR Code Display */}
+          {generatedUrl && (
+            <div className="flex justify-center mt-6">
+              <div className="p-4 bg-white rounded-xl shadow-md border border-gray-200">
+                <QRCode
+                  value={generatedUrl}
+                  size={128}
+                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                  viewBox={`0 0 256 256`}
+                />
+                <p className="text-center text-sm font-semibold text-gray-500 mt-2">Scan me</p>
+              </div>
+            </div>
+          )}
 
           {/* Generated URL Display */}
           {generatedUrl && (
             <div className="mt-6 p-6 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg border-2 border-purple-300">
-              <h3 className="text-lg font-semibold text-purple-700 mb-3">Your Shortened URL:</h3>
+              <h3 className="text-lg font-semibold text-purple-700 mb-3">
+                Your Shortened URL:
+              </h3>
               <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-                <input 
-                  type="text" 
-                  value={generatedUrl} 
-                  readOnly 
-                  className="flex-1 bg-white border border-purple-300 rounded-lg p-3 text-purple-900 font-medium"
-                />
-                <button 
+                <Link 
+                  href={generatedUrl} 
+                  target="_blank"
+                  className="flex-1 bg-white border border-purple-300 rounded-lg p-3 text-purple-900 font-medium hover:bg-purple-50 hover:border-purple-400 transition-all cursor-pointer overflow-x-auto"
+                >
+                  {generatedUrl}
+                </Link>
+                <button
                   onClick={handleCopy}
                   className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 ${
-                    copied 
-                      ? 'bg-green-500 text-white' 
-                      : 'bg-purple-600 text-white hover:bg-purple-700 hover:scale-105'
+                    copied
+                      ? "bg-green-500 text-white"
+                      : "bg-purple-600 text-white hover:bg-purple-700 hover:scale-105"
                   }`}
                 >
-                  {copied ? '✓ Copied!' : 'Copy'}
+                  {copied ? "✓ Copied!" : "Copy"}
+                </button>
+                <button
+                  onClick={() => window.open(generatedUrl, "_blank")}
+                  className="px-6 py-3 rounded-lg font-bold bg-purple-500 text-white hover:bg-purple-600 hover:scale-105 transition-all duration-300"
+                >
+                  Visit
                 </button>
               </div>
             </div>
@@ -177,7 +217,7 @@ const Shortener = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Shortener
+export default Shortener;
