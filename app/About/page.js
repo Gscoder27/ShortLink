@@ -88,7 +88,7 @@ const About = () => {
           <h2 className="text-3xl font-bold text-gray-800 mb-8">Ready to get started?</h2>
           <Link href="/Shortener">
             <button className="inline-flex items-center justify-center px-10 py-4 border-2 border-transparent text-xl font-bold rounded-full text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 transform active:scale-95">
-              Shorten a Link Now ✨
+              Shorten a Link Now
             </button>
           </Link>
         </div>
