@@ -207,7 +207,7 @@ const Shortener = () => {
                 </button>
                 <button
                   onClick={() => window.open(generatedUrl, "_blank")}
-                  className="px-6 py-3 rounded-lg font-bold bg-purple-500 text-white hover:bg-purple-600 hover:scale-105 transition-all duration-300"
+                  className="px-6 py-3 rounded-lg font-bold bg-purple-600 text-white hover:bg-purple-700 hover:scale-105 transition-all duration-300"
                 >
                   Visit
                 </button>
