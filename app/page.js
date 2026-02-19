@@ -20,41 +20,45 @@ const page = () => {
   }, [currentIndex, fullText])
 
   return (
-    <main className='bg-purple-100 min-h-screen'>
-      <section className='grid grid-cols-1 lg:grid-cols-2 min-h-[calc(100vh-72px)]'>
-        <div className="flex flex-col gap-4 p-6 md:p-8 lg:p-4 items-center justify-center max-w-4xl mx-auto w-full">
-          <p className='text-lg sm:text-xl md:text-2xl font-bold text-gray-800 text-center lg:text-left'>
+    <div className='bg-purple-100 h-full'>
+      <section className='grid grid-cols-1 lg:grid-cols-2 h-full min-h-[80vh] items-center'>
+        <div className="flex flex-col gap-6 p-6 md:p-12 lg:p-16 items-center lg:items-start text-center lg:text-left justify-center order-2 lg:order-1">
+          <p className='text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 leading-tight'>
             {displayedText}
             {currentIndex < fullText.length && (
-              <span className='animate-pulse'>|</span>
+              <span className='animate-pulse text-purple-600'>|</span>
             )}
           </p>
-          <p className='text-sm md:text-base text-center px-4 md:px-0'>
-          With our powerful and user-friendly platform, you can easily shorten long URLs into concise and shareable links. Say goodbye to cumbersome URLs and hello to a sleek and efficient way to share your content. our URL shortener will make your links look clean and professional across muliple platforms you are willing to share. Try it out now and experience the convenience of shortened URLs at your fingertips! Join us today and start shortening your URLs for a more streamlined online experience!
+          <p className='text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl'>
+          With our powerful and user-friendly platform, you can easily shorten long URLs into concise and shareable links. Say goodbye to cumbersome URLs and hello to a sleek and efficient way to share your content.
           </p>
-          <div className='flex flex-col sm:flex-row gap-3 justify-center w-full sm:w-auto'>
-            <button className='bg-purple-500 rounded-lg shadow-lg px-6 py-2 font-bold transition-all duration-300 ease-in-out hover:bg-purple-600 hover:shadow-2xl hover:scale-110 hover:-translate-y-1 active:scale-95 text-white w-full sm:w-auto'>
-              <Link href="/Shortener">Try Now</Link>
-            </button> 
-            <button className='bg-purple-500 rounded-lg shadow-lg px-6 py-2 font-bold transition-all duration-300 ease-in-out hover:bg-purple-600 hover:shadow-2xl hover:scale-110 hover:-translate-y-1 active:scale-95 text-white w-full sm:w-auto'>
-              GitHub
-            </button>
+          <div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4'>
+            <Link href="/Shortener" className="w-full sm:w-auto">
+              <button className='w-full sm:w-auto bg-purple-600 rounded-xl shadow-lg px-8 py-3 font-bold text-lg text-white transition-all duration-300 ease-in-out hover:bg-purple-700 hover:shadow-xl hover:-translate-y-1 active:scale-95'>
+                Try Now
+              </button> 
+            </Link>
+            <Link href="/github" className="w-full sm:w-auto">
+              <button className='w-full sm:w-auto bg-white border-2 border-purple-600 rounded-xl shadow-lg px-8 py-3 font-bold text-lg text-purple-700 transition-all duration-300 ease-in-out hover:bg-purple-50 hover:shadow-xl hover:-translate-y-1 active:scale-95'>
+                GitHub
+              </button>
+            </Link>
           </div>
         </div>    
-        <div className='relative h-[350px] sm:h-[350px] lg:h-auto min-h-[350px] w-full flex items-center justify-center p-4 lg:p-8'>
-          <div className='relative w-full h-full max-w-2xl max-h-[500px]'>
+        <div className='relative w-full flex items-center justify-center p-6 lg:p-12 order-1 lg:order-2 h-[300px] sm:h-[400px] lg:h-full lg:min-h-[500px]'>
+          <div className='relative w-full h-full max-w-lg lg:max-w-xl'>
             <Image 
-              className="mix-blend-darken object-contain" 
-              alt="Visual representation of a vector" 
+              className="mix-blend-multiply object-contain drop-shadow-xl" 
+              alt="Visual representation of URL shortening" 
               src={"/Vector.jpg"} 
               fill={true}
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority
             />
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }
 

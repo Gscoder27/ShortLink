@@ -1,6 +1,7 @@
 import { Dancing_Script, Nunito } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // Dancing Script font configuration (for Navbar)
 const dancingScript = Dancing_Script({
@@ -31,11 +32,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${dancingScript.variable} ${nunito.variable} antialiased bg-purple-50`}
+        className={`${dancingScript.variable} ${nunito.variable} antialiased bg-purple-50 flex flex-col min-h-screen`}
         style={{ fontFamily: 'var(--font-nunito), sans-serif' }}
       >
         <Navbar/>
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

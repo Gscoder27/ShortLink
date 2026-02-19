@@ -7,8 +7,8 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <div className="min-h-[calc(100vh-72px)] bg-purple-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <div className="flex-grow bg-purple-50 py-8 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <div className="max-w-4xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
         
         <div className="bg-purple-700 py-10 px-8 text-center">
             <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Get in Touch</h1>
