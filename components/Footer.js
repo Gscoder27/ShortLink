@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -41,20 +42,16 @@ const Footer = () => {
           {/* Contact & Social */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="text-lg font-bold mb-4 text-purple-100">Connect With Us</h3>
-            <p className="text-purple-300 text-sm mb-2">support@shortlink.com</p>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="flex-shrink-0">
+                  <Image src="/G-Mail.png" alt="Email" width={20} height={20} />
+              </div>
+              <p className="text-purple-300 text-sm">support@shortlink.com</p>
+            </div>
             <div className="flex space-x-4 mt-2">
-              <a href="#" className="w-8 h-8 rounded-full bg-purple-800 flex items-center justify-center hover:bg-purple-600 transition-colors duration-300">
-                <span className="sr-only">Twitter</span>
-                🐦
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-purple-800 flex items-center justify-center hover:bg-purple-600 transition-colors duration-300">
-                <span className="sr-only">GitHub</span>
-                🐙
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-purple-800 flex items-center justify-center hover:bg-purple-600 transition-colors duration-300">
-                <span className="sr-only">LinkedIn</span>
-                💼
-              </a>
+              {/* <Link href="#" className="w-8 h-8 rounded-full bg-purple-800 flex items-center justify-center hover:bg-purple-600 transition-colors duration-300 overflow-hidden">
+                <Image src="/social.png" alt="Social" width={20} height={20} />
+              </Link> */}
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Contact - ShortLink',
@@ -24,8 +25,8 @@ const Contact = () => {
                     
                     <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0">
-                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 text-xl shadow-sm">
-                                📧
+                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 text-xl shadow-sm overflow-hidden">
+                                <Image src="/G-Mail.png" alt="Email" width={32} height={32} />
                             </div>
                         </div>
                         <div>
@@ -36,8 +37,8 @@ const Contact = () => {
 
                     <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0">
-                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 text-xl shadow-sm">
-                                📍
+                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 text-xl shadow-sm overflow-hidden">
+                                <Image src="/G-Maps.png" alt="Location" width={32} height={32} />
                             </div>
                         </div>
                         <div>
@@ -47,8 +48,8 @@ const Contact = () => {
                     </div>
                      <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0">
-                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 text-xl shadow-sm">
-                                🐦
+                            <div className="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-600 text-xl shadow-sm overflow-hidden">
+                                <Image src="/social.png" alt="Social" width={32} height={32} />
                             </div>
                         </div>
                         <div>
